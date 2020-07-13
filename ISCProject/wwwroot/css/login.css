@@ -1,0 +1,7 @@
+﻿.login-container{
+    padding-left:20px;
+    padding-right:20px;
+}
+.login-container *{
+    margin-bottom:20px
+}

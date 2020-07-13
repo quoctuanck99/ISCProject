@@ -1,0 +1,188 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+body {
+    background: #f5f5f5;
+}
+
+.header * {
+    position: relative;
+}
+
+.name {
+    font-weight: bold;
+    top: 4px;
+    left: 7% !important;
+}
+
+.header .username-post * {
+    float: left;
+    left: 5%;
+}
+
+.avatar {
+    border-radius: 50%;
+    width: 50px;
+}
+
+.header {
+    padding: 3px 3px 3px 3px;
+    margin-top: 10px;
+}
+
+.post-container {
+    width: 100%;
+    min-height: 100px;
+    background-color: white;
+    border: 0.5px solid lightgray;
+    border-radius: 3px;
+    padding-bottom: 20px;
+    overflow: auto;
+    margin-bottom:20px;
+}
+
+.colasp-menu-post * {
+    font-size: 20px;
+    right: 50% !important;
+    cursor: pointer;
+}
+
+.img-content img {
+    margin-top: 2%;
+    position: relative;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.username-post {
+    cursor: pointer;
+}
+
+.location {
+    color: grey;
+    margin-top: 1%;
+    margin-left: 2%;
+    font-size: 14px
+}
+
+.post-description {
+    margin-top: 10px;
+    display: block !important;
+    text-align:left;
+    margin-left:4% !important;
+}
+
+    .post-description:before {
+        content: "";
+        display: block;
+    }
+.reaction-control .love-button .love-click {
+    margin-left: 4% !important;
+    font-size: 20px;
+    color: red;
+    cursor: pointer;
+}
+.reaction-control {
+    margin-top:10px;
+    text-align: left;
+}
+.name-description {
+    font-weight: bold;
+    position: relative;
+}
+.post-activity .post-description {
+    display: block
+}
+.comment-box{
+    width: 95%;
+    margin-left: 3% !important;
+    margin-top: 2%;
+}
+.submit-comment{
+ margin-left:20px;
+
+}
+.sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+    .sticky + .content {
+        padding-top: 50px;
+    }
+header {
+    z-index: 9999999;
+    position: relative;
+}
+/*------------------------------------------------------------*/
+a.navbar-brand {
+    white-space: normal;
+    text-align: left;
+    word-break: break-all;
+}
+
+/* Provide sufficient contrast against white background */
+a {
+    color: #0366d6;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.border-top {
+    border-top: 1px solid #e5e5e5;
+}
+
+.border-bottom {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy {
+    font-size: 1rem;
+    line-height: inherit;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px; /* Vertically center the text there */
+}
