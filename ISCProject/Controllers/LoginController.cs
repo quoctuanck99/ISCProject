@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using ISCProject_Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 
 namespace ISCProject.Controllers
@@ -21,13 +22,19 @@ namespace ISCProject.Controllers
 
         [Route("login")]
         [HttpPost]
-        public async Task<IActionResult> LoginAsync(string exampleInputEmail1, string exampleInputPassword1)
+        public async Task<IActionResult> LoginAsync(string exampleInputUsername1, string exampleInputPassword1)
         {
             using var httpClient = new HttpClient();
-            using var response = await httpClient.GetAsync(BaseAPI + "Accounts");
+            using var response = await httpClient.GetAsync(BaseAPI + "Login?username=" + exampleInputUsername1 + "&password=" + exampleInputPassword1);
             string apiResponse = await response.Content.ReadAsStringAsync();
-            List<Account> account = JsonConvert.DeserializeObject<List<Account>>(apiResponse);
-            return View("/Views/Home/Index.cshtml");
+            Account account = JsonConvert.DeserializeObject<Account>(apiResponse);
+            if (account == null)
+                return Redirect("/login");
+            else
+            {
+                //HttpContext.Session.Set("UserID", account.AccountId);
+                return View("/Views/Home/Index.cshtml");
+            }
         }
     }
 }
