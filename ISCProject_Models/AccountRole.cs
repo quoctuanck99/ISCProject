@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ISCProject_API.Models
+namespace ISCProject_Models
 {
-    public partial class Follow
+    public partial class AccountRole
     {
         public int AccountId { get; set; }
-        public int FollowingId { get; set; }
+        public int RoleId { get; set; }
 
         public virtual Account Account { get; set; }
-        public virtual Account Following { get; set; }
+        public virtual Role Role { get; set; }
     }
 }

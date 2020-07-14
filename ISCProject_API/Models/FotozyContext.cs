@@ -1,4 +1,5 @@
 ﻿using System;
+using ISCProject_Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 

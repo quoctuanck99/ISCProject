@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ISCProject_API.Models
+namespace ISCProject_Models
 {
-    public partial class PostTag
+    public partial class PostImage
     {
         public int PostId { get; set; }
-        public int TagId { get; set; }
+        public int ImageId { get; set; }
 
+        public virtual Image Image { get; set; }
         public virtual Post Post { get; set; }
-        public virtual HashTag Tag { get; set; }
     }
 }

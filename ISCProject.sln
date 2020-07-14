@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30204.135
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ISCProject", "ISCProject\ISCProject.csproj", "{043955D1-3B52-4B52-B0C9-0A667692088F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ISCProject", "ISCProject\ISCProject.csproj", "{043955D1-3B52-4B52-B0C9-0A667692088F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ISCProject_API", "ISCProject_API\ISCProject_API.csproj", "{6C5F2DF7-07EE-4664-839C-742257D5E563}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ISCProject_API", "ISCProject_API\ISCProject_API.csproj", "{6C5F2DF7-07EE-4664-839C-742257D5E563}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ISCProject_Models", "ISCProject_Models\ISCProject_Models.csproj", "{A945A67F-5B78-4B01-A835-1BF0DCCDEA5C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{6C5F2DF7-07EE-4664-839C-742257D5E563}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6C5F2DF7-07EE-4664-839C-742257D5E563}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6C5F2DF7-07EE-4664-839C-742257D5E563}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A945A67F-5B78-4B01-A835-1BF0DCCDEA5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A945A67F-5B78-4B01-A835-1BF0DCCDEA5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A945A67F-5B78-4B01-A835-1BF0DCCDEA5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A945A67F-5B78-4B01-A835-1BF0DCCDEA5C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

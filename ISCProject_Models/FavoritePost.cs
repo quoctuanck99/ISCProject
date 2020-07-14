@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ISCProject_API.Models
+namespace ISCProject_Models
 {
     public partial class FavoritePost
     {

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ISCProject_API.Models;
+using ISCProject_Models;
 
 namespace ISCProject_API.Controllers
 {
