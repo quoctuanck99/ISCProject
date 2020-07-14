@@ -13,5 +13,11 @@ namespace ISCProject.Controllers
         {
             return View("Views/Home/UserPage.cshtml");
         }
+
+        [Route("user/edit-info")]
+        public IActionResult Edit()
+        {
+            return View("Views/Home/EditInformation.cshtml");
+        }
     }
 }
