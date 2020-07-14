@@ -13,6 +13,7 @@
       "launchBrowser": true,
       "launchUrl": "home/index",
       "environmentVariables": {
+        "BaseAPI": "https://localhost:44301/api/",
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
