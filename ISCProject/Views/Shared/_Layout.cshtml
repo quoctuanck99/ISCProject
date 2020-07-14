@@ -11,6 +11,27 @@
         #logo-banner {
             width: 20%;
         }
+        .float {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 40px;
+            right: 40px;
+            background-color: #ff7100;
+            color: #FFF;
+            border-radius: 50px;
+            text-align: center;
+            box-shadow: 2px 2px 3px #999;
+        }
+
+        .my-float {
+            margin-top: 22px;
+        }
+        #upload-container img{
+            width: 100%;
+            position: relative;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -53,20 +74,62 @@
     <script src="~/js/bootstrap.min.js" crossorigin="anonymous"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
-    <script>
-        window.onscroll = function () { myFunction() };
+    @*<script>
+            window.onscroll = function () { myFunction() };
 
-        var header = document.getElementById("navBar");
-        var sticky = header.offsetTop;
+            var header = document.getElementById("navBar");
+            var sticky = header.offsetTop;
 
-        function myFunction() {
-            if (window.pageYOffset > sticky) {
-                header.classList.add("sticky");
-            } else {
-                header.classList.remove("sticky");
+            function myFunction() {
+                if (window.pageYOffset > sticky) {
+                    header.classList.add("sticky");
+                } else {
+                    header.classList.remove("sticky");
+                }
             }
-        }
-    </script>
+        </script>*@
+    <a href="#" class="float" data-toggle="modal" data-target="#staticBackdrop">
+        <i class="fa fa-plus my-float"></i>
+    </a>
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="upload-container">
+                    <img src="~/img/upload.png" />
+                    <input type="file" id="upload-button" hidden />
+                   <hr/>
+                    <form>
+                        <div class="form-group">
+                            <label for="post-description" style="color:gray"><i>Say something:</i></label>
+                            <textarea class="form-control" id="post-description" rows="3"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlInput1" style="color:gray"><i>Location:</i></label>
+                            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="">
+                        </div>
+                    </form>
+                </div>
 
+                <div  class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary">Upload</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $("#upload-container").find("img").click(function () {
+            $("#upload-button").click();
+        });
+
+    </script>
 </body>
+
 </html>
