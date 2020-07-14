@@ -9,9 +9,12 @@ namespace ISCProject_Models
         {
             Comment = new HashSet<Comment>();
             FavoritePost = new HashSet<FavoritePost>();
+            FollowAccount = new HashSet<Follow>();
+            FollowFollowing = new HashSet<Follow>();
             Participant = new HashSet<Participant>();
             Post = new HashSet<Post>();
             Report = new HashSet<Report>();
+            ReportUser = new HashSet<ReportUser>();
         }
 
         public int AccountId { get; set; }
@@ -30,8 +33,11 @@ namespace ISCProject_Models
         public virtual Account Account { get; set; }
         public virtual ICollection<Comment> Comment { get; set; }
         public virtual ICollection<FavoritePost> FavoritePost { get; set; }
+        public virtual ICollection<Follow> FollowAccount { get; set; }
+        public virtual ICollection<Follow> FollowFollowing { get; set; }
         public virtual ICollection<Participant> Participant { get; set; }
         public virtual ICollection<Post> Post { get; set; }
         public virtual ICollection<Report> Report { get; set; }
+        public virtual ICollection<ReportUser> ReportUser { get; set; }
     }
 }

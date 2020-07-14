@@ -7,8 +7,8 @@ namespace ISCProject_Models
     {
         public Report()
         {
-            ReportAccount = new HashSet<ReportAccount>();
             ReportPost = new HashSet<ReportPost>();
+            ReportUser = new HashSet<ReportUser>();
         }
 
         public int ReportId { get; set; }
@@ -18,7 +18,7 @@ namespace ISCProject_Models
         public DateTime DateCreated { get; set; }
 
         public virtual User Account { get; set; }
-        public virtual ICollection<ReportAccount> ReportAccount { get; set; }
         public virtual ICollection<ReportPost> ReportPost { get; set; }
+        public virtual ICollection<ReportUser> ReportUser { get; set; }
     }
 }
