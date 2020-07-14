@@ -1,6 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+@using Microsoft.AspNetCore.Http;
     <link href="~/css/usercss.css" rel="stylesheet" />
 <div class="text-center">
     <div class="row">
@@ -11,7 +12,7 @@
         </div>
         <div class="col-lg-8 col-sm-8">
             <div class="profile-information ">
-                <div class="username">jackma</div>
+                <div class="username">@Context.Session.GetString("Username")</div>
                 <div class="summary-user">
                     <b>25</b> Posts	&nbsp;	&nbsp;
                     <b>25</b> Following	&nbsp;	&nbsp;

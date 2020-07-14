@@ -25,6 +25,7 @@ namespace ISCProject_Models
         public bool IsActive { get; set; }
         public string Avatar { get; set; }
         public bool IsAgency { get; set; }
+        public string Info { get; set; }
 
         public virtual Account Account { get; set; }
         public virtual ICollection<Comment> Comment { get; set; }

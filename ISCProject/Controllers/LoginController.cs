@@ -10,10 +10,8 @@ using Newtonsoft.Json;
 
 namespace ISCProject.Controllers
 {
-    public class LoginController : Controller
+    public class LoginController : ModifiedController
     {
-        public readonly string BaseAPI = Environment.GetEnvironmentVariable("BaseAPI");
-
         [Route("login")]
         public IActionResult Index()
         {
@@ -43,6 +41,7 @@ namespace ISCProject.Controllers
                     apiResponse = await response2.Content.ReadAsStringAsync();
                     User user = JsonConvert.DeserializeObject<User>(apiResponse);
                     HttpContext.Session.SetString("Email", user.Email);
+                    HttpContext.Session.SetString("Username", user.Username);
                 }
                 return Redirect("/home/index");
             }

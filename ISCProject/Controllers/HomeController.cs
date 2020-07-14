@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ISCProject.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace ISCProject.Controllers
 {
@@ -21,12 +22,10 @@ namespace ISCProject.Controllers
         [Route("home/index")]
         public IActionResult Index()
         {
-            return View();
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
+            if (HttpContext.Session.GetInt32("AccountId") == null)
+                return Redirect("/login");
+            else
+                return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
