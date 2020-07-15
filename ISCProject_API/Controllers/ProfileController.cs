@@ -18,7 +18,7 @@ namespace ISCProject_API.Controllers
         }
 
         [HttpGet]
-        public ActionResult<Profile> GetProfile(int AccountId, int? FollowingId)
+        public ActionResult GetProfile(int AccountId, int? FollowingId)
         {
             FollowingId = FollowingId == null ? AccountId : FollowingId;
             var profile = (from a in _context.User
@@ -33,7 +33,9 @@ namespace ISCProject_API.Controllers
                                IsFollowing = a.FollowFollowing.Select(x => x.AccountId).Contains(FollowingId.Value),
                                AccountId = a.AccountId,
                            }).FirstOrDefault();
-            return profile;
+
+            var images = _context.PostImage.Where(x => x.Post.AccountId == AccountId).Select(x => x.Image).ToList();
+            return Ok(new { profile, images});
         }
     }
 }

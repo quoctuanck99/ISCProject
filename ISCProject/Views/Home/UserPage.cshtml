@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = "Home Page";
     Profile profile = ViewBag.profile;
+    List<Image> images = ViewBag.images;
 }
 <link href="~/css/usercss.css" rel="stylesheet" />
 <div class="text-center">
@@ -50,15 +51,12 @@
     <hr />
     <div class="images-container">
         <div class="row images-row">
-            <div class="col-lg-4 col-sm-12 col-md-12">
-                <img class="post-image" src="~/img/1.jpg" />
-            </div>
-            <div class="col-lg-4 col-sm-12 col-md-12">
-                <img class="post-image" src="~/img/1.jpg" />
-            </div>
-            <div class="col-lg-4 col-sm-12 col-md-12">
-                <img class="post-image" src="~/img/1.jpg" />
-            </div>
+            @foreach (var item in images)
+            {
+                <div class="col-lg-4 col-sm-12 col-md-12">
+                    <img class="post-image" src="@(item.ImageName)" />
+                </div>
+            }
         </div>
 
     </div>
