@@ -66,6 +66,20 @@ namespace ISCProject_API.Controllers
                     });
                 }
                 _context.SaveChanges();
+                /////////////////////////////////////////////////////
+                Image img = new Image()
+                {
+                    ImageName = post_data.link,
+                    DateUploaded = post_data.DateCreated
+                };
+                _context.Image.Add(img);
+                _context.SaveChanges();
+                _context.PostImage.Add(new PostImage()
+                {
+                    PostId = post.PostId,
+                    ImageId = img.ImageId
+                });
+                _context.SaveChanges();
                 ////////////////////////////////////////////////////////
                 trans.Commit();
             }
