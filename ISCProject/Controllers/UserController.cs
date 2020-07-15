@@ -33,5 +33,21 @@ namespace ISCProject.Controllers
         {
             return View("Views/Home/EditInformation.cshtml");
         }
+
+        
+        [Route("user/upload-photo")]
+        [HttpPost]
+        public ActionResult Upload(string json)
+        {
+            PostData data= JsonConvert.DeserializeObject<PostData>(json);
+            return null;
+        }
+        class PostData
+        {
+            public string link { get; set; }
+            public string description { get; set; }
+            public string tags { get; set; }
+            public string location { get; set; }
+        }
     }
 }
