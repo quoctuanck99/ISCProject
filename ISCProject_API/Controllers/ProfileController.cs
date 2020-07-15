@@ -8,11 +8,11 @@ namespace ISCProject_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class ProfileController : ControllerBase
     {
         private readonly FotozyContext _context;
 
-        public UserController(FotozyContext context)
+        public ProfileController(FotozyContext context)
         {
             _context = context;
         }

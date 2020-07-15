@@ -30,11 +30,17 @@
                     {
                         if (profile.IsFollowing)
                         {
-                            <button type="button" class="btn btn-outline-primary" style="background-color: #007bff; color: white" data-AccountId="@profile.AccountId" id="delete-follow">Following</button>
+                            <form action="/user/delete-following" method="get">
+                                <input hidden name="AccountId" value="@profile.AccountId" />
+                                <button type="submit" class="btn btn-primary" id="delete-follow">Following</button>
+                            </form>
                         }
                         else
                         {
-                            <button type="button" class="btn btn-outline-primary" data-AccountId="@profile.AccountId" id="add-follow">Follow</button>
+                            <form action="/user/add-following" method="post">
+                                <input hidden name="AccountId" value="@profile.AccountId" />
+                                <button type="submit" class="btn btn-outline-primary" id="add-follow">Follow</button>
+                            </form>
                         }
                     }
                 </div>
@@ -57,3 +63,17 @@
 
     </div>
 </div>
+
+<script>
+    $("#delete-follow").mouseenter(function () {
+        $(this).text("Unfollow");
+        $(this).removeClass("btn-primary");
+        $(this).addClass("btn-danger");
+    })
+
+    $("#delete-follow").mouseleave(function () {
+        $(this).text("Following");
+        $(this).removeClass("btn-danger");
+        $(this).addClass("btn-primary");
+    })
+</script>
