@@ -25,7 +25,7 @@ namespace ISCProject.Controllers
             if (HttpContext.Session.GetInt32("AccountId") == null)
                 return Redirect("/login");
             else
-                return View();
+                return View("/Views/Home/Index.cshtml");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
