@@ -12,5 +12,6 @@ namespace ISCProject_Models
         public string Info { get; set; }
         public string Username { get; set; }
         public bool IsFollowing { get; set; }
+        public int AccountId { get; set; }
     }
 }

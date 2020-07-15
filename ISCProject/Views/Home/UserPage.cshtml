@@ -30,11 +30,11 @@
                     {
                         if (profile.IsFollowing)
                         {
-                            <button type="button" class="btn btn-outline-primary" style="background-color: #007bff; color: white">Following</button>
+                            <button type="button" class="btn btn-outline-primary" style="background-color: #007bff; color: white" data-AccountId="@profile.AccountId" id="delete-follow">Following</button>
                         }
                         else
                         {
-                            <button type="button" class="btn btn-outline-primary">Follow</button>
+                            <button type="button" class="btn btn-outline-primary" data-AccountId="@profile.AccountId" id="add-follow">Follow</button>
                         }
                     }
                 </div>

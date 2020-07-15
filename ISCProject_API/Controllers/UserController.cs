@@ -30,7 +30,8 @@ namespace ISCProject_API.Controllers
                                NumFollowing = a.FollowAccount.Count(),
                                NumFollower = a.FollowFollowing.Count(),
                                Username = a.Username,
-                               IsFollowing = a.FollowFollowing.Select(x => x.AccountId).Contains(FollowingId.Value)
+                               IsFollowing = a.FollowFollowing.Select(x => x.AccountId).Contains(FollowingId.Value),
+                               AccountId = a.AccountId,
                            }).FirstOrDefault();
             return profile;
         }
