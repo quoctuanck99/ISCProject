@@ -25,7 +25,8 @@ namespace ISCProject_API.Controllers
         [HttpPost]
         public async Task<ActionResult> UploadPost(PostData post_data)
         {
-            using (var trans= _context.Database.BeginTransaction()){
+            using (var trans = _context.Database.BeginTransaction())
+            {
                 try
                 {
 
@@ -45,7 +46,7 @@ namespace ISCProject_API.Controllers
                     {
                         _context.HashTag.Add(h);
                     }
-                    _context.SaveChanges();
+                    await _context.SaveChangesAsync();
                     tagg = tagg.Union(tags.Select(x => x.TagId)).ToList();
                     /////////////////////////////////////////////////////////
                     Post post = new Post()
@@ -58,7 +59,7 @@ namespace ISCProject_API.Controllers
                         IsAds = post_data.IsAds
                     };
                     _context.Post.Add(post);
-                    _context.SaveChanges();
+                    await _context.SaveChangesAsync();
                     /////////////////////////////////////////////
                     foreach (int h in tagg)
                     {
@@ -68,7 +69,7 @@ namespace ISCProject_API.Controllers
                             TagId = h
                         });
                     }
-                    _context.SaveChanges();
+                    await _context.SaveChangesAsync();
                     /////////////////////////////////////////////////////
                     Image img = new Image()
                     {
@@ -82,13 +83,13 @@ namespace ISCProject_API.Controllers
                         PostId = post.PostId,
                         ImageId = img.ImageId
                     });
-                    _context.SaveChanges();
+                    await _context.SaveChangesAsync();
                     ////////////////////////////////////////////////////////
-                    trans.Commit();
+                    await trans.CommitAsync();
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
-                    trans.Rollback();
+                    await trans.RollbackAsync();
                 }
             }
             return Ok();
