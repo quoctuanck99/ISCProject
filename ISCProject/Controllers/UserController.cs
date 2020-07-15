@@ -39,18 +39,28 @@ namespace ISCProject.Controllers
         
         [Route("user/upload-photo")]
         [HttpPost]
-        public ActionResult Upload(string json)
+        public async Task<IActionResult> Upload(string json)
         {
+            if (HttpContext.Session.GetInt32("AccountId") == null)
+                return Redirect("/login");
             PostData data= JsonConvert.DeserializeObject<PostData>(json);
-            return null;
-        }
-        class PostData
-        {
-            public string link { get; set; }
-            public string description { get; set; }
-            public string tags { get; set; }
-            public string location { get; set; }
+            data.AccountId = (int)HttpContext.Session.GetInt32("AccountId");
+            data.IsAds = (int)HttpContext.Session.GetInt32("IsAgency") == 1;
+            data.DateCreated = DateTime.Now;
+            using var httpClient = new HttpClient();
+            using var response1 = await httpClient.PostAsync(BaseAPI + "PostUpload", new StringContent(JsonConvert.SerializeObject(data), UnicodeEncoding.UTF8, "application/json"));
+            string apiResponse = await response1.Content.ReadAsStringAsync();
+            if (response1.IsSuccessStatusCode)
+            {
+                return Json(new { message = "Upload success!" });
+            }
+            else
+            {
+                return Json(new { message = "Upload failed!" });
+            }
 
+        }
+        
         [Route("user/add-following")]
         [HttpPost]
         public async Task<IActionResult> AddFollow(int AccountId)

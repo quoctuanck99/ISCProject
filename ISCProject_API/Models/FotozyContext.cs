@@ -52,7 +52,7 @@ namespace ISCProject_API.Models
             modelBuilder.Entity<Account>(entity =>
             {
                 entity.HasIndex(e => e.AccountName)
-                    .HasName("UQ__Account__6894C54A3063D3A9")
+                    .HasName("UQ__Account__6894C54A3A21B3BD")
                     .IsUnique();
 
                 entity.Property(e => e.AccountId).HasColumnName("account_id");
@@ -79,7 +79,7 @@ namespace ISCProject_API.Models
             modelBuilder.Entity<AccountRole>(entity =>
             {
                 entity.HasKey(e => new { e.AccountId, e.RoleId })
-                    .HasName("PK__Account___91C2B491D529EE19");
+                    .HasName("PK__Account___91C2B4919B47C7E5");
 
                 entity.ToTable("Account_role");
 
@@ -91,19 +91,19 @@ namespace ISCProject_API.Models
                     .WithMany(p => p.AccountRole)
                     .HasForeignKey(d => d.AccountId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Account_r__accou__4F7CD00D");
+                    .HasConstraintName("FK__Account_r__accou__5070F446");
 
                 entity.HasOne(d => d.Role)
                     .WithMany(p => p.AccountRole)
                     .HasForeignKey(d => d.RoleId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Account_r__role___5070F446");
+                    .HasConstraintName("FK__Account_r__role___5165187F");
             });
 
             modelBuilder.Entity<Ads>(entity =>
             {
                 entity.HasKey(e => e.PostId)
-                    .HasName("PK__Ads__3ED7876608D245BD");
+                    .HasName("PK__Ads__3ED78766F86B7EB0");
 
                 entity.Property(e => e.PostId)
                     .HasColumnName("post_id")
@@ -117,13 +117,13 @@ namespace ISCProject_API.Models
                     .WithOne(p => p.Ads)
                     .HasForeignKey<Ads>(d => d.PostId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Ads__post_id__5165187F");
+                    .HasConstraintName("FK__Ads__post_id__52593CB8");
             });
 
             modelBuilder.Entity<Comment>(entity =>
             {
                 entity.HasIndex(e => new { e.PostId, e.AccountId })
-                    .HasName("UQ__Comment__FABDA54B6CF0DF9F")
+                    .HasName("UQ__Comment__FABDA54BB5DC5560")
                     .IsUnique();
 
                 entity.Property(e => e.CommentId).HasColumnName("comment_id");
@@ -139,18 +139,18 @@ namespace ISCProject_API.Models
                 entity.HasOne(d => d.Account)
                     .WithMany(p => p.Comment)
                     .HasForeignKey(d => d.AccountId)
-                    .HasConstraintName("FK__Comment__account__52593CB8");
+                    .HasConstraintName("FK__Comment__account__534D60F1");
 
                 entity.HasOne(d => d.Post)
                     .WithMany(p => p.Comment)
                     .HasForeignKey(d => d.PostId)
-                    .HasConstraintName("FK__Comment__post_id__534D60F1");
+                    .HasConstraintName("FK__Comment__post_id__5441852A");
             });
 
             modelBuilder.Entity<FavoritePost>(entity =>
             {
                 entity.HasKey(e => new { e.PostId, e.AccountId })
-                    .HasName("PK__Favorite__FABDA54AD65DA1E6");
+                    .HasName("PK__Favorite__FABDA54A151685CA");
 
                 entity.ToTable("Favorite_post");
 
@@ -162,19 +162,19 @@ namespace ISCProject_API.Models
                     .WithMany(p => p.FavoritePost)
                     .HasForeignKey(d => d.AccountId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Favorite___accou__5441852A");
+                    .HasConstraintName("FK__Favorite___accou__5535A963");
 
                 entity.HasOne(d => d.Post)
                     .WithMany(p => p.FavoritePost)
                     .HasForeignKey(d => d.PostId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Favorite___post___5535A963");
+                    .HasConstraintName("FK__Favorite___post___5629CD9C");
             });
 
             modelBuilder.Entity<Follow>(entity =>
             {
                 entity.HasKey(e => new { e.AccountId, e.FollowingId })
-                    .HasName("PK__Follow__C82D9645CD849D9C");
+                    .HasName("PK__Follow__C82D964521C6F336");
 
                 entity.Property(e => e.AccountId).HasColumnName("account_id");
 
@@ -184,21 +184,25 @@ namespace ISCProject_API.Models
                     .WithMany(p => p.FollowAccount)
                     .HasForeignKey(d => d.AccountId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Follow__account___5629CD9C");
+                    .HasConstraintName("FK__Follow__account___571DF1D5");
 
                 entity.HasOne(d => d.Following)
                     .WithMany(p => p.FollowFollowing)
                     .HasForeignKey(d => d.FollowingId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Follow__followin__571DF1D5");
+                    .HasConstraintName("FK__Follow__followin__5812160E");
             });
 
             modelBuilder.Entity<HashTag>(entity =>
             {
                 entity.HasKey(e => e.TagId)
-                    .HasName("PK__Hash_tag__4296A2B659AEBB16");
+                    .HasName("PK__Hash_tag__4296A2B68B91F5FE");
 
                 entity.ToTable("Hash_tag");
+
+                entity.HasIndex(e => e.TagName)
+                    .HasName("UQ__Hash_tag__E298655CAC47C0EB")
+                    .IsUnique();
 
                 entity.Property(e => e.TagId).HasColumnName("tag_id");
 
@@ -234,13 +238,13 @@ namespace ISCProject_API.Models
                 entity.HasOne(d => d.Participant)
                     .WithMany(p => p.Message)
                     .HasForeignKey(d => d.ParticipantId)
-                    .HasConstraintName("FK__Message__partici__5812160E");
+                    .HasConstraintName("FK__Message__partici__59063A47");
             });
 
             modelBuilder.Entity<Participant>(entity =>
             {
                 entity.HasIndex(e => new { e.AccountId, e.RoomId })
-                    .HasName("UQ__Particip__F7345764AA5FEBDB")
+                    .HasName("UQ__Particip__F73457644908F7C9")
                     .IsUnique();
 
                 entity.Property(e => e.ParticipantId).HasColumnName("participant_id");
@@ -256,12 +260,12 @@ namespace ISCProject_API.Models
                 entity.HasOne(d => d.Account)
                     .WithMany(p => p.Participant)
                     .HasForeignKey(d => d.AccountId)
-                    .HasConstraintName("FK__Participa__accou__59063A47");
+                    .HasConstraintName("FK__Participa__accou__59FA5E80");
 
                 entity.HasOne(d => d.Room)
                     .WithMany(p => p.Participant)
                     .HasForeignKey(d => d.RoomId)
-                    .HasConstraintName("FK__Participa__room___59FA5E80");
+                    .HasConstraintName("FK__Participa__room___5AEE82B9");
             });
 
             modelBuilder.Entity<Post>(entity =>
@@ -278,6 +282,10 @@ namespace ISCProject_API.Models
                     .HasColumnName("date_created")
                     .HasColumnType("datetime");
 
+                entity.Property(e => e.Description)
+                    .HasColumnName("description")
+                    .HasMaxLength(500);
+
                 entity.Property(e => e.IsAds).HasColumnName("is_ads");
 
                 entity.Property(e => e.NumbFavorite).HasColumnName("numb_favorite");
@@ -285,13 +293,13 @@ namespace ISCProject_API.Models
                 entity.HasOne(d => d.Account)
                     .WithMany(p => p.Post)
                     .HasForeignKey(d => d.AccountId)
-                    .HasConstraintName("FK__Post__account_id__5AEE82B9");
+                    .HasConstraintName("FK__Post__account_id__5BE2A6F2");
             });
 
             modelBuilder.Entity<PostImage>(entity =>
             {
                 entity.HasKey(e => new { e.PostId, e.ImageId })
-                    .HasName("PK__Post_ima__731E2BF314DA840B");
+                    .HasName("PK__Post_ima__731E2BF3E9DE1EA0");
 
                 entity.ToTable("Post_image");
 
@@ -303,19 +311,19 @@ namespace ISCProject_API.Models
                     .WithMany(p => p.PostImage)
                     .HasForeignKey(d => d.ImageId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Post_imag__image__5BE2A6F2");
+                    .HasConstraintName("FK__Post_imag__image__5CD6CB2B");
 
                 entity.HasOne(d => d.Post)
                     .WithMany(p => p.PostImage)
                     .HasForeignKey(d => d.PostId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Post_imag__post___5CD6CB2B");
+                    .HasConstraintName("FK__Post_imag__post___5DCAEF64");
             });
 
             modelBuilder.Entity<PostTag>(entity =>
             {
                 entity.HasKey(e => new { e.PostId, e.TagId })
-                    .HasName("PK__Post_tag__4AFEED4DBD90BAF4");
+                    .HasName("PK__Post_tag__4AFEED4D7CE977D0");
 
                 entity.ToTable("Post_tag");
 
@@ -327,19 +335,19 @@ namespace ISCProject_API.Models
                     .WithMany(p => p.PostTag)
                     .HasForeignKey(d => d.PostId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Post_tag__post_i__5DCAEF64");
+                    .HasConstraintName("FK__Post_tag__post_i__5EBF139D");
 
                 entity.HasOne(d => d.Tag)
                     .WithMany(p => p.PostTag)
                     .HasForeignKey(d => d.TagId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Post_tag__tag_id__5EBF139D");
+                    .HasConstraintName("FK__Post_tag__tag_id__5FB337D6");
             });
 
             modelBuilder.Entity<PostVideo>(entity =>
             {
                 entity.HasKey(e => new { e.PostId, e.VideoId })
-                    .HasName("PK__Post_vid__2058968749A742B1");
+                    .HasName("PK__Post_vid__2058968712DD5605");
 
                 entity.ToTable("Post_video");
 
@@ -351,13 +359,13 @@ namespace ISCProject_API.Models
                     .WithMany(p => p.PostVideo)
                     .HasForeignKey(d => d.PostId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Post_vide__post___5FB337D6");
+                    .HasConstraintName("FK__Post_vide__post___60A75C0F");
 
                 entity.HasOne(d => d.Video)
                     .WithMany(p => p.PostVideo)
                     .HasForeignKey(d => d.VideoId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Post_vide__video__60A75C0F");
+                    .HasConstraintName("FK__Post_vide__video__619B8048");
             });
 
             modelBuilder.Entity<Report>(entity =>
@@ -379,13 +387,13 @@ namespace ISCProject_API.Models
                 entity.HasOne(d => d.Account)
                     .WithMany(p => p.Report)
                     .HasForeignKey(d => d.AccountId)
-                    .HasConstraintName("FK__Report__account___619B8048");
+                    .HasConstraintName("FK__Report__account___628FA481");
             });
 
             modelBuilder.Entity<ReportPost>(entity =>
             {
                 entity.HasKey(e => new { e.ReportId, e.PostId })
-                    .HasName("PK__Report_p__0476042E8CBBE646");
+                    .HasName("PK__Report_p__0476042EDF86B600");
 
                 entity.ToTable("Report_post");
 
@@ -397,19 +405,19 @@ namespace ISCProject_API.Models
                     .WithMany(p => p.ReportPost)
                     .HasForeignKey(d => d.PostId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Report_po__post___6477ECF3");
+                    .HasConstraintName("FK__Report_po__post___656C112C");
 
                 entity.HasOne(d => d.Report)
                     .WithMany(p => p.ReportPost)
                     .HasForeignKey(d => d.ReportId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Report_po__repor__656C112C");
+                    .HasConstraintName("FK__Report_po__repor__66603565");
             });
 
             modelBuilder.Entity<ReportUser>(entity =>
             {
                 entity.HasKey(e => new { e.ReportId, e.AccountId })
-                    .HasName("PK__Report_u__B3F15E744775DDD7");
+                    .HasName("PK__Report_u__B3F15E745105417B");
 
                 entity.ToTable("Report_user");
 
@@ -421,13 +429,13 @@ namespace ISCProject_API.Models
                     .WithMany(p => p.ReportUser)
                     .HasForeignKey(d => d.AccountId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Report_us__accou__628FA481");
+                    .HasConstraintName("FK__Report_us__accou__6383C8BA");
 
                 entity.HasOne(d => d.Report)
                     .WithMany(p => p.ReportUser)
                     .HasForeignKey(d => d.ReportId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Report_us__repor__6383C8BA");
+                    .HasConstraintName("FK__Report_us__repor__6477ECF3");
             });
 
             modelBuilder.Entity<Role>(entity =>
@@ -451,14 +459,14 @@ namespace ISCProject_API.Models
             modelBuilder.Entity<User>(entity =>
             {
                 entity.HasKey(e => e.AccountId)
-                    .HasName("PK__User__46A222CD0CB93666");
+                    .HasName("PK__User__46A222CD33650C04");
 
                 entity.HasIndex(e => e.Email)
-                    .HasName("UQ__User__AB6E616480E1347A")
+                    .HasName("UQ__User__AB6E61649D29975B")
                     .IsUnique();
 
                 entity.HasIndex(e => e.Phone)
-                    .HasName("UQ__User__B43B145FF7F7301A")
+                    .HasName("UQ__User__B43B145FAA2E8A66")
                     .IsUnique();
 
                 entity.Property(e => e.AccountId)
@@ -512,7 +520,7 @@ namespace ISCProject_API.Models
                     .WithOne(p => p.User)
                     .HasForeignKey<User>(d => d.AccountId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__User__account_id__66603565");
+                    .HasConstraintName("FK__User__account_id__6754599E");
             });
 
             modelBuilder.Entity<Video>(entity =>

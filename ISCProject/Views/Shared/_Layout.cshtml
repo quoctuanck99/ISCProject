@@ -109,9 +109,12 @@
                 }
             }
         </script>*@
-    <a href="#" class="float" data-toggle="modal" data-target="#staticBackdrop">
-        <i class="fa fa-plus my-float"></i>
-    </a>
+    @if (Context.Session.GetInt32("AccountId") != null)
+    {
+        <a href="#" class="float" data-toggle="modal" data-target="#staticBackdrop">
+            <i class="fa fa-plus my-float"></i>
+        </a>
+    }
     <!-- Modal -->
     <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -144,7 +147,7 @@
 
                 <div class="modal-footer">
                     <button type="button" id="cancel-upload" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="button" id="upload-btn" class="btn btn-primary">Upload</button>
+                    <button type="button" id="upload-btn" disabled class="btn btn-primary">Upload</button>
                 </div>
             </div>
         </div>
@@ -187,6 +190,7 @@
         }
 
     </script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAN_wgLTdwHCqgW2gfotcbZWqnCLVsDzPo&libraries=places&callback=initAutocomplete" async defer></script>
     <script src="https://unpkg.com/filepond/dist/filepond.min.js"></script>
     <script src="https://unpkg.com/jquery-filepond/filepond.jquery.js"></script>
@@ -246,6 +250,7 @@
                                     method: 'GET',
                                     success: function (result) {
                                         uploadResult = result["data"]["files"][0]["link"]
+                                        $("#upload-btn").attr("disabled", false);
                                     }
                                 })
                             }
@@ -297,23 +302,26 @@
         var post_data;
         var json_post_data;
         $("#upload-btn").click(function () {
-             post_data = {
+            post_data = {
                 link: uploadResult,
-                description: $("#post-description").val(),
-                location: $("#autocomplete-location").val(),
+                Description: $("#post-description").val(),
+                Checkin: $("#autocomplete-location").val(),
                 tags: $("#tags-upload").val()
             }
-             json_post_data = JSON.stringify(post_data);
+            json_post_data = JSON.stringify(post_data);
             $.ajax({
                 type: 'POST',
                 url: "/user/upload-photo",
-                contentType: "application/json",
-                dataType: 'text',
+                dataType: 'json',
                 data: {
                     json: json_post_data
                 },
                 success: function (result) {
-                   
+                    swal(result["message"], {
+                        buttons: false,
+                        timer: 1000,
+                    });
+                    location.reload();
                 }
             })
         })

@@ -42,6 +42,7 @@ namespace ISCProject.Controllers
                     User user = JsonConvert.DeserializeObject<User>(apiResponse);
                     HttpContext.Session.SetString("Email", user.Email);
                     HttpContext.Session.SetString("Username", user.Username);
+                    HttpContext.Session.SetInt32("IsAgency", user.IsAgency?1:0);
                 }
                 return Redirect("/home/index");
             }
