@@ -26,62 +26,70 @@ namespace ISCProject_API.Controllers
         public async Task<ActionResult> UploadPost(PostData post_data)
         {
             using (var trans= _context.Database.BeginTransaction()){
-                List<HashTag> tags = new List<HashTag>();
-                string[] tagslist = post_data.tags.Split(',');
-                List<HashTag> existed_tags = _context.HashTag.Where(x => tagslist.Contains(x.TagName)).ToList();
-                List<int> tagg = existed_tags.Select(x => x.TagId).ToList();
-                ////////////////////////////////////////////
-                foreach (string t in tagslist)
+                try
                 {
-                    if (!existed_tags.Where(x => x.TagName == t).Any())
+
+                    List<HashTag> tags = new List<HashTag>();
+                    string[] tagslist = post_data.tags.Split(',');
+                    List<HashTag> existed_tags = _context.HashTag.Where(x => tagslist.Contains(x.TagName)).ToList();
+                    List<int> tagg = existed_tags.Select(x => x.TagId).ToList();
+                    ////////////////////////////////////////////
+                    foreach (string t in tagslist)
                     {
-                        tags.Add(new HashTag() { TagName = t });
+                        if (!existed_tags.Where(x => x.TagName == t).Any())
+                        {
+                            tags.Add(new HashTag() { TagName = t });
+                        }
                     }
-                }
-                foreach(HashTag h in tags)
-                {
+                    foreach (HashTag h in tags)
+                    {
                         _context.HashTag.Add(h);
-                }
-                _context.SaveChanges();
-                tagg = tagg.Union(tags.Select(x=>x.TagId)).ToList();
-                /////////////////////////////////////////////////////////
-                Post post = new Post()
-                {
-                    AccountId = post_data.AccountId,
-                    Description = post_data.Description,
-                    NumbFavorite = post_data.NumbFavorite,
-                    DateCreated = post_data.DateCreated,
-                    Checkin = post_data.Checkin,
-                    IsAds = post_data.IsAds
-                };
-                _context.Post.Add(post);
-                _context.SaveChanges();
-                /////////////////////////////////////////////
-                foreach(int h in tagg)
-                {
-                    _context.PostTag.Add(new PostTag()
+                    }
+                    _context.SaveChanges();
+                    tagg = tagg.Union(tags.Select(x => x.TagId)).ToList();
+                    /////////////////////////////////////////////////////////
+                    Post post = new Post()
+                    {
+                        AccountId = post_data.AccountId,
+                        Description = post_data.Description,
+                        NumbFavorite = post_data.NumbFavorite,
+                        DateCreated = post_data.DateCreated,
+                        Checkin = post_data.Checkin,
+                        IsAds = post_data.IsAds
+                    };
+                    _context.Post.Add(post);
+                    _context.SaveChanges();
+                    /////////////////////////////////////////////
+                    foreach (int h in tagg)
+                    {
+                        _context.PostTag.Add(new PostTag()
+                        {
+                            PostId = post.PostId,
+                            TagId = h
+                        });
+                    }
+                    _context.SaveChanges();
+                    /////////////////////////////////////////////////////
+                    Image img = new Image()
+                    {
+                        ImageName = post_data.link,
+                        DateUploaded = post_data.DateCreated
+                    };
+                    _context.Image.Add(img);
+                    _context.SaveChanges();
+                    _context.PostImage.Add(new PostImage()
                     {
                         PostId = post.PostId,
-                        TagId = h
+                        ImageId = img.ImageId
                     });
+                    _context.SaveChanges();
+                    ////////////////////////////////////////////////////////
+                    trans.Commit();
                 }
-                _context.SaveChanges();
-                /////////////////////////////////////////////////////
-                Image img = new Image()
+                catch (Exception)
                 {
-                    ImageName = post_data.link,
-                    DateUploaded = post_data.DateCreated
-                };
-                _context.Image.Add(img);
-                _context.SaveChanges();
-                _context.PostImage.Add(new PostImage()
-                {
-                    PostId = post.PostId,
-                    ImageId = img.ImageId
-                });
-                _context.SaveChanges();
-                ////////////////////////////////////////////////////////
-                trans.Commit();
+                    trans.Rollback();
+                }
             }
             return Ok();
         }

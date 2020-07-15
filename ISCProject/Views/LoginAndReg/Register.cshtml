@@ -1,4 +1,4 @@
-﻿@{
+﻿    @{
     ViewData["Title"] = "Home Page";
 }
 <link href="~/css/login.css" rel="stylesheet" />
@@ -13,39 +13,48 @@
         <div class="col-lg-12">
             <div class="post-container">
                 <h3 class="" style="margin-top:20px">Register</h3>
-                <div class="login-container" style="text-align:left">
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Username">
+                <form action="/register" method="post">
+                    <div class="login-container" style="text-align:left">
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="username" aria-describedby="emailHelp" placeholder="Login name">
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-control" name="email" aria-describedby="emailHelp" placeholder="Enter email">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" name="password" placeholder="Password">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" name="exampleInputPassword1" placeholder="Re-enter password">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="fullname" aria-describedby="emailHelp" placeholder="Enter FullName">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="phone" aria-describedby="emailHelp" placeholder="Enter Phone">
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <label>Gender:&nbsp; &nbsp;</label>
+                            <input class="form-check-input" type="radio" name="gender" id="inlineRadio1" value="true" >
+                            <label class="form-check-label" for="inlineRadio1">Male</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="gender" id="inlineRadio2" value="false">
+                            <label class="form-check-label" for="inlineRadio2">Female</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="date" class="form-control" name="dob" aria-describedby="emailHelp" placeholder="Date of birth">
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                            <label class="form-check-label" for="exampleCheck1">Accept to <a href="#">Term of use</a> </label>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+
+                    <div class="submit-form" style="text-align:center">
+                        <button type="submit" class="btn btn-primary">Register</button>
                     </div>
-                    <div class="form-group">
-                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-                    </div>
-                    <div class="form-group">
-                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Re-enter password">
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <label>Gender:&nbsp; &nbsp;</label>
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-                        <label class="form-check-label" for="inlineRadio1">Male</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                        <label class="form-check-label" for="inlineRadio2">Female</label>
-                    </div>
-                    <div class="form-group">
-                        <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Date of birth">
-                    </div>
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                        <label class="form-check-label" for="exampleCheck1">Accept to <a href="#">Term of use</a> </label>
-                    </div>
-                </div>
-                <div class="submit-form" style="text-align:center">
-                    <button type="submit" class="btn btn-primary">Register</button>
-                </div>
+                </form>
             </div>
         </div>
     </div>
