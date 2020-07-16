@@ -29,7 +29,7 @@
     <div class="row">
         <div class="col-lg-4 col-sm-4">
             <div class="profile-picture ">
-                <img src="~/img/img_avatar.png" />
+                <img src="" />
             </div>
             <img id="upload-profile-btn" src="~/img/Circle-icons-upload.svg.png" />
             <img id="loading" src="~/img/LoadingBasketContents.gif" hidden="true" />
@@ -127,12 +127,14 @@
                         dataType: 'json',
                         method: 'GET',
                         success: function (result) {
-                            var uploadResult = "@Context.Session.GetInt32("AccountId")|" + result["data"]["files"][0]["link"]
+                            var uploadProfilePicture = "@Context.Session.GetString("Username")|" + result["data"]["files"][0]["link"]
                             $.ajax({
                                 url: "@Environment.GetEnvironmentVariable("BaseAPI")" + "ProfilePicture",
-                                dataType: 'text',
+                                dataType: 'json',
                                 method: 'POST',
-                                data: "uploadResult={"+JSON.stringify(uploadResult) +"}",
+                                data: {
+                                    uploadProfilePicture: uploadProfilePicture
+                                },
                                 success: function (result) {
                                     $("#loading").attr("hidden",true)
                                     location.reload();

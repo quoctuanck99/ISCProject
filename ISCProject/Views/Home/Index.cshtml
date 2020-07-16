@@ -13,7 +13,7 @@
                 <div class="post-container" data-PostId="@(item.PostId)">
                     <div class="header">
                         <div class="username-post">
-                            <img class="avatar" src="~/img/img_avatar.png">
+                            <img class="avatar" src="@(item.Avatar)">
                             <a href="/user/personalPage?AccountId=@(item.AccountId)" class="name">@(item.Username)</a><br />
                             <div class="location">@(item.Checkin)</div>
                         </div>
