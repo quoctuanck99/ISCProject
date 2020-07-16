@@ -36,6 +36,8 @@ namespace ISCProject_API.Controllers
                 Checkin = x.Checkin,
                 Description = x.Description,
                 Images = x.PostImage.Select(x => x.Image).ToList(),
+                IsFavorite = x.FavoritePost.Where(x => x.AccountId == AccountId).Any(),
+                NumFavorite = x.FavoritePost.Count(),
                 Comments = x.Comment.ToList(),
                 DateCreated = x.DateCreated,
                 AccountId = x.AccountId,

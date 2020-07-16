@@ -26,7 +26,7 @@
                     </div>
                     <div class="reaction-control">
                         <div class="love-button">
-                            <i class="fa fa-heart love-click" aria-hidden="true"></i> <span>You, <b>jackma</b> and <b>5 others</b> like this</span>
+                            <i class="fa @(item.IsFavorite ? "fa-heart":"fa-heart-o") love-click" aria-hidden="true"></i> <span class="NumFavorite">@(item.NumFavorite)</span> peoples like this
                         </div>
 
                     </div>
@@ -85,3 +85,36 @@
       }
     }
     </script>*@
+
+<script>
+    $(".love-click").click(function () {
+        let DOM = $(this);
+        let PostId = $(this).closest(".post-container").data("postid");
+        let IsAdd = $(this).hasClass("fa-heart-o")
+        $.ajax({
+            url: "/FavoritePosts",
+            method: "post",
+            dataType: "text",
+            cache: false,
+            data: {
+                PostId: PostId,
+                IsAdd: IsAdd
+            },
+            success: function () {
+                if (IsAdd) {
+                    DOM.parent().find(".NumFavorite").text(parseInt(DOM.parent().find(".NumFavorite").text()) + 1);
+                    DOM.removeClass("fa-heart-o");
+                    DOM.addClass("fa-heart");
+                }
+                else {
+                    DOM.parent().find(".NumFavorite").text(parseInt(DOM.parent().find(".NumFavorite").text()) - 1);
+                    DOM.removeClass("fa-heart");
+                    DOM.addClass("fa-heart-o");
+                }
+            },
+            error: function () {
+                console.log("abc");
+            }
+        })
+    })
+</script>
