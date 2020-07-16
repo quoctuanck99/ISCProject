@@ -21,13 +21,6 @@
                             <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
                         </div>
                     </div>
-                    <p>@(item.Description)</p>
-                    <b>
-                        @foreach (var tag in item.hashTags)
-                        {
-                            <a href="#">@("#" + tag.TagName)</a>
-                        }
-                    </b>
                     <div class="img-content">
                         <img src="@(item.Images[0].ImageName)" />
                     </div>
@@ -38,6 +31,17 @@
 
                     </div>
                     <div class="post-activity">
+                        <div class="post-description">
+                            <span class="name-description">@(item.Username)</span> <span class="comment-content">
+                                @(item.Description)
+                                <b>
+                                    @foreach (var tag in item.hashTags)
+                                    {
+                                        <a href="#">@("#" + tag.TagName)</a>
+                                    }
+                                </b>
+                            </span>
+                        </div>
                         @foreach (var comment in item.Comments)
                         {
                             <div class="post-description">
@@ -67,8 +71,6 @@
     </div>
 </div>
 <!-- Code begins here -->
-
-
 @*<script>
     window.onscroll = function() {myFunction()};
 
