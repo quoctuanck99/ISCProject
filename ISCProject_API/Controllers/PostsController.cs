@@ -23,26 +23,60 @@ namespace ISCProject_API.Controllers
 
         // GET: api/Posts
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<BigPost>>> GetListPost(int AccountId)
+        public async Task<ActionResult<IEnumerable<BigPost>>> GetListPost(int AccountId, string Username, string TagName)
         {
             var Ids = await _context.Follow.Where(x => x.AccountId == AccountId).Select(x => x.FollowingId).ToListAsync();
             Ids.Add(AccountId);
 
-            var Post = await _context.Post.Where(x => Ids.Contains(x.AccountId)).Select(x => new BigPost
-            {
-                PostId = x.PostId,
-                Avatar = x.Account.Avatar,
-                Username = x.Account.Username,
-                Checkin = x.Checkin,
-                Description = x.Description,
-                Images = x.PostImage.Select(x => x.Image).ToList(),
-                IsFavorite = x.FavoritePost.Where(x => x.AccountId == AccountId).Any(),
-                NumFavorite = x.FavoritePost.Count(),
-                Comments = x.Comment.ToList(),
-                DateCreated = x.DateCreated,
-                AccountId = x.AccountId,
-                hashTags = x.PostTag.Select(x => x.Tag).ToList()
-            }).OrderByDescending(x => x.DateCreated).ToListAsync();
+            var Post = new List<BigPost>();
+            if (Username != null)
+                Post = await _context.Post.Where(x => x.Account.Username.Contains(Username)).Select(x => new BigPost
+                {
+                    PostId = x.PostId,
+                    Avatar = x.Account.Avatar,
+                    Username = x.Account.Username,
+                    Checkin = x.Checkin,
+                    Description = x.Description,
+                    Images = x.PostImage.Select(x => x.Image).ToList(),
+                    IsFavorite = x.FavoritePost.Where(x => x.AccountId == AccountId).Any(),
+                    NumFavorite = x.FavoritePost.Count(),
+                    Comments = x.Comment.ToList(),
+                    DateCreated = x.DateCreated,
+                    AccountId = x.AccountId,
+                    hashTags = x.PostTag.Select(x => x.Tag).ToList()
+                }).OrderByDescending(x => x.DateCreated).ToListAsync();
+            else if (TagName != null)
+                Post = await _context.Post.Where(x => x.PostTag.Select(x => x.Tag.TagName).Any(x => x.Contains(TagName))).Select(x => new BigPost
+                {
+                    PostId = x.PostId,
+                    Avatar = x.Account.Avatar,
+                    Username = x.Account.Username,
+                    Checkin = x.Checkin,
+                    Description = x.Description,
+                    Images = x.PostImage.Select(x => x.Image).ToList(),
+                    IsFavorite = x.FavoritePost.Where(x => x.AccountId == AccountId).Any(),
+                    NumFavorite = x.FavoritePost.Count(),
+                    Comments = x.Comment.ToList(),
+                    DateCreated = x.DateCreated,
+                    AccountId = x.AccountId,
+                    hashTags = x.PostTag.Select(x => x.Tag).ToList()
+                }).OrderByDescending(x => x.DateCreated).ToListAsync();
+            else
+                Post = await _context.Post.Where(x => Ids.Contains(x.AccountId)).Select(x => new BigPost
+                {
+                    PostId = x.PostId,
+                    Avatar = x.Account.Avatar,
+                    Username = x.Account.Username,
+                    Checkin = x.Checkin,
+                    Description = x.Description,
+                    Images = x.PostImage.Select(x => x.Image).ToList(),
+                    IsFavorite = x.FavoritePost.Where(x => x.AccountId == AccountId).Any(),
+                    NumFavorite = x.FavoritePost.Count(),
+                    Comments = x.Comment.ToList(),
+                    DateCreated = x.DateCreated,
+                    AccountId = x.AccountId,
+                    hashTags = x.PostTag.Select(x => x.Tag).ToList()
+                }).OrderByDescending(x => x.DateCreated).ToListAsync();
 
             //if (!Post.Any())
             //{

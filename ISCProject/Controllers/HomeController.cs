@@ -24,13 +24,13 @@ namespace ISCProject.Controllers
         }
 
         [Route("home/index")]
-        public async Task<IActionResult> IndexAsync()
+        public async Task<IActionResult> IndexAsync(string Username, string TagName)
         {
             if (HttpContext.Session.GetInt32("AccountId") == null)
                 return Redirect("/login");
 
             using var httpClient = new HttpClient();
-            using var response = await httpClient.GetAsync(BaseAPI + "Posts?AccountId=" + HttpContext.Session.GetInt32("AccountId"));
+            using var response = await httpClient.GetAsync(BaseAPI + "Posts?AccountId=" + HttpContext.Session.GetInt32("AccountId") + "&Username=" + Username + "&TagName=" + TagName);
             string apiResponse = await response.Content.ReadAsStringAsync();
             JObject jObject = JObject.Parse(apiResponse);
 
@@ -39,6 +39,12 @@ namespace ISCProject.Controllers
 
             ViewBag.post = post;
             ViewBag.users = users;
+
+            if (Username != null)
+                ViewBag.Username = Username;
+            if (TagName != null)
+                ViewBag.TagName = TagName;
+
             return View("/Views/Home/Index.cshtml");
         }
 
