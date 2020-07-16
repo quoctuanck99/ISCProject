@@ -31,7 +31,7 @@ body {
 
 .post-container {
     width: 100%;
-    min-height: 100px;
+    min-height: 300px;
     background-color: white;
     border: 0.5px solid lightgray;
     border-radius: 3px;

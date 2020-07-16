@@ -45,6 +45,9 @@
         .pac-container.pac-logo {
             z-index: 9999999;
         }
+        #search-box{
+            width:50% !important;
+        }
     </style>
     <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
     <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
@@ -60,6 +63,8 @@
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
                     <img id="logo-banner" src="~/img/logo.png" />
                 </a>
+                <input type="text" class="form-control" id="search-box" placeholder="Search...">
+
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -138,7 +143,7 @@
                         </div>
                         <div class="form-group">
                             <label for="exampleFormControlInput1" style="color:gray"><i>Tag:</i></label>
-                            <input type="text" id="tags-upload" data-role="tagsinput" value="jQuery,Script,Net">
+                            <input type="text" id="tags-upload" data-role="tagsinput" value="">
                         </div>
 
                 </div>
