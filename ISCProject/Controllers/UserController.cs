@@ -8,6 +8,7 @@ using ISCProject_Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace ISCProject.Controllers
 {
@@ -22,9 +23,15 @@ namespace ISCProject.Controllers
             AccountId = AccountId == null ? HttpContext.Session.GetInt32("AccountId").Value : AccountId;
             using var httpClient = new HttpClient();
             using var response = await httpClient.GetAsync(BaseAPI + "Profile?AccountId=" + AccountId + "&FollowingId=" + (AccountId == HttpContext.Session.GetInt32("AccountId") ? AccountId : HttpContext.Session.GetInt32("AccountId")));
-            string apiResponse = await response.Content.ReadAsStringAsync();
-            Profile profile = JsonConvert.DeserializeObject<Profile>(apiResponse);
-            ViewBag.profile = profile;
+            if (response.IsSuccessStatusCode)
+            {
+                string apiResponse = await response.Content.ReadAsStringAsync();
+                JObject jObject = JObject.Parse(apiResponse);
+                Profile profile = JsonConvert.DeserializeObject<Profile>(jObject["profile"].ToString());
+                List<Image> images = JsonConvert.DeserializeObject<List<Image>>(jObject["images"].ToString());
+                ViewBag.profile = profile;
+                ViewBag.images = images;
+            }
             ViewBag.current = AccountId == HttpContext.Session.GetInt32("AccountId");
             ViewBag.BaseAPI = BaseAPI;
             return View("Views/Home/UserPage.cshtml");
@@ -36,14 +43,14 @@ namespace ISCProject.Controllers
             return View("Views/Home/EditInformation.cshtml");
         }
 
-        
+
         [Route("user/upload-photo")]
         [HttpPost]
         public async Task<IActionResult> Upload(string json)
         {
             if (HttpContext.Session.GetInt32("AccountId") == null)
                 return Redirect("/login");
-            PostData data= JsonConvert.DeserializeObject<PostData>(json);
+            PostData data = JsonConvert.DeserializeObject<PostData>(json);
             data.AccountId = (int)HttpContext.Session.GetInt32("AccountId");
             data.IsAds = (int)HttpContext.Session.GetInt32("IsAgency") == 1;
             data.DateCreated = DateTime.Now;
@@ -60,7 +67,7 @@ namespace ISCProject.Controllers
             }
 
         }
-        
+
         [Route("user/add-following")]
         [HttpPost]
         public async Task<IActionResult> AddFollow(int AccountId)

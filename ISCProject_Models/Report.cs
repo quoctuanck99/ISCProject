@@ -12,7 +12,7 @@ namespace ISCProject_Models
         }
 
         public int ReportId { get; set; }
-        public int? AccountId { get; set; }
+        public int AccountId { get; set; }
         public string Reason { get; set; }
         public bool IsClosed { get; set; }
         public DateTime DateCreated { get; set; }

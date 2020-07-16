@@ -11,8 +11,8 @@ namespace ISCProject_Models
         }
 
         public int ParticipantId { get; set; }
-        public int? AccountId { get; set; }
-        public int? RoomId { get; set; }
+        public int AccountId { get; set; }
+        public int RoomId { get; set; }
         public string NickName { get; set; }
 
         public virtual User Account { get; set; }

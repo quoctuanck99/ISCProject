@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ISCProject_API\ISCProject_API.csproj" />
     <ProjectReference Include="..\ISCProject_Models\ISCProject_Models.csproj" />
   </ItemGroup>
 

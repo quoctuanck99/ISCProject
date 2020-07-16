@@ -7,10 +7,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ISCProject.Models;
 using Microsoft.AspNetCore.Http;
+using System.Net.Http;
+using ISCProject_Models;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace ISCProject.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : ModifiedController
     {
         private readonly ILogger<HomeController> _logger;
 
@@ -20,12 +24,22 @@ namespace ISCProject.Controllers
         }
 
         [Route("home/index")]
-        public IActionResult Index()
+        public async Task<IActionResult> IndexAsync()
         {
             if (HttpContext.Session.GetInt32("AccountId") == null)
                 return Redirect("/login");
-            else
-                return View("/Views/Home/Index.cshtml");
+
+            using var httpClient = new HttpClient();
+            using var response = await httpClient.GetAsync(BaseAPI + "Posts?AccountId=" + HttpContext.Session.GetInt32("AccountId"));
+            string apiResponse = await response.Content.ReadAsStringAsync();
+            JObject jObject = JObject.Parse(apiResponse);
+
+            List<BigPost> post = JsonConvert.DeserializeObject<List<BigPost>>(jObject["post"].ToString());
+            List<User> users = JsonConvert.DeserializeObject<List<User>>(jObject["users"].ToString());
+
+            ViewBag.post = post;
+            ViewBag.users = users;
+            return View("/Views/Home/Index.cshtml");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
