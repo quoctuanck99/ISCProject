@@ -29,7 +29,10 @@ namespace ISCProject.Controllers
             var json = JsonConvert.SerializeObject(register);
             var stringContent = new StringContent(json, UnicodeEncoding.UTF8, "application/json");
             using var response = await httpClient.PostAsync(BaseAPI + "Register", stringContent);
-            return Ok();
+            if (response.IsSuccessStatusCode)
+                return Redirect("/login");
+            else
+                return Redirect("/register");
         }
     }
 }

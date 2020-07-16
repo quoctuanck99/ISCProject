@@ -89,6 +89,7 @@ namespace ISCProject_API.Controllers
                 }
                 catch (Exception e)
                 {
+                    e.Message.ToString();
                     await trans.RollbackAsync();
                 }
             }

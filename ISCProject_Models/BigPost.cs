@@ -12,6 +12,8 @@ namespace ISCProject_Models
         public string Checkin { get; set; }
         public int AccountId { get; set; }
         public string Description { get; set; }
+        public bool IsFavorite { get; set; }
+        public int NumFavorite { get; set; }
         public DateTime DateCreated { get; set; }
         public List<Image> Images { get; set; }
         public List<Comment> Comments { get; set; }
