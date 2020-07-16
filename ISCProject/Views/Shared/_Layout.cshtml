@@ -46,7 +46,7 @@
             z-index: 9999999;
         }
         #search-box{
-            width:50% !important;
+            width:30% !important;
         }
     </style>
     <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
@@ -74,10 +74,10 @@
                     <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                         <ul class="navbar-nav flex-grow-1">
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index"><i class="fa fa-user" aria-hidden="true"></i></a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index"><i class="fa fa-user" aria-hidden="true"></i> <i><b> @Context.Session.GetString("Username")</b></i> </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Logout" asp-action="Index"><i class="fa fa-sign-out" aria-hidden="true"></i></a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Logout" asp-action="Index"><i class="fa fa-sign-out" aria-hidden="true"></i><b> Logout</b></a>
                             </li>
                         </ul>
                     </div>
@@ -250,7 +250,7 @@
             });
 
             // Set allowMultiple property to true
-            $('.my-pond').filepond('allowMultiple', true);
+            $('.my-pond').filepond('allowMultiple', false);
 
             // Listen for addfile event
             $('.my-pond').on('FilePond:addfile', function (e) {

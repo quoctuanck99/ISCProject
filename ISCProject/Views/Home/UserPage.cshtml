@@ -5,6 +5,25 @@
     Profile profile = ViewBag.profile;
     List<Image> images = ViewBag.images;
 }
+<style>
+    #upload-profile-btn {
+        width: 10%;
+        position: absolute;
+        left: 60%;
+        bottom: 0%;
+        cursor: pointer;
+        transition: transform .2s;
+     }
+        #upload-profile-btn:hover {
+            transform: scale(1.5); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+        }
+    #loading {
+        position: absolute;
+        width: 20%;
+        bottom: 23%;
+        right: 40%;
+    }
+</style>
 <link href="~/css/usercss.css" rel="stylesheet" />
 <div class="text-center">
     <div class="row">
@@ -12,6 +31,8 @@
             <div class="profile-picture ">
                 <img src="~/img/img_avatar.png" />
             </div>
+            <img id="upload-profile-btn" src="~/img/Circle-icons-upload.svg.png" />
+            <img id="loading" src="~/img/LoadingBasketContents.gif" hidden="true" />
         </div>
         <div class="col-lg-8 col-sm-8">
             <div class="profile-information ">
@@ -61,8 +82,12 @@
 
     </div>
 </div>
+<form id="formDataProfilePic">
+    <input type="file" id="profile-picture-upload" name="filesUploaded" accept="image/png, image/jpeg, image/gif" hidden />
+</form>
 
 <script>
+
     $("#delete-follow").mouseenter(function () {
         $(this).text("Unfollow");
         $(this).removeClass("btn-primary");
@@ -74,4 +99,48 @@
         $(this).removeClass("btn-danger");
         $(this).addClass("btn-primary");
     })
+    $("#upload-profile-btn").click(function () {
+        $("#profile-picture-upload").click();
+    })
+    $("input#profile-picture-upload").change(function () {
+        $("#loading").attr("hidden", false);
+        var file = document.getElementById("profile-picture-upload").files[0];
+        var formData = new FormData();
+                formData.append("filesUploaded", file);
+                formData.append("email", "tuankqhe130156@fpt.edu.vn")
+
+                var settings = {
+                    "async": true,
+                    "crossDomain": true,
+                    "url": "https://srv-file9.gofile.io/upload",
+                    "method": "POST",
+                    "processData": false,
+                    "contentType": false,
+                    "mimeType": "multipart/form-data",
+                    "data": formData
+                };
+                $.ajax(settings).done(function (response) {
+                    let code = JSON.parse(response)["data"]["code"];
+                    $.ajax({
+                        url: "https://srv-file9.gofile.io/getUpload?c=" + code,
+                        contentType: "application/json",
+                        dataType: 'json',
+                        method: 'GET',
+                        success: function (result) {
+                            var uploadResult = "@Context.Session.GetInt32("AccountId")|" + result["data"]["files"][0]["link"]
+                            $.ajax({
+                                url: "@Environment.GetEnvironmentVariable("BaseAPI")" + "ProfilePicture",
+                                dataType: 'text',
+                                method: 'POST',
+                                data: "uploadResult={"+JSON.stringify(uploadResult) +"}",
+                                success: function (result) {
+                                    $("#loading").attr("hidden",true)
+                                    location.reload();
+                                }
+                            });
+
+                        }
+                    });
+                });
+    });
 </script>
