@@ -13,7 +13,7 @@ namespace ISCProject_Models
         public string Phonenumber { get; set; }
         public Boolean Gender { get; set; }
         public DateTime Dob { get; set; }
-
+        public Register() { }
         public Register(string username, string password, string email, string fullname, string phone, Boolean gender, DateTime dob)
         {
             this.Username = username;

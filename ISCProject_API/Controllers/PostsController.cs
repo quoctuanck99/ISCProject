@@ -42,22 +42,22 @@ namespace ISCProject_API.Controllers
                 hashTags = x.PostTag.Select(x => x.Tag).ToList()
             }).OrderByDescending(x => x.DateCreated).ToListAsync();
 
-            if (!Post.Any())
-            {
-                Post = await _context.Post.Select(x => new BigPost
-                {
-                    PostId = x.PostId,
-                    Avatar = x.Account.Avatar,
-                    Username = x.Account.Username,
-                    Checkin = x.Checkin,
-                    Description = x.Description,
-                    Images = x.PostImage.Select(x => x.Image).ToList(),
-                    Comments = x.Comment.ToList(),
-                    DateCreated = x.DateCreated,
-                    AccountId = x.AccountId,
-                    hashTags = x.PostTag.Select(x => x.Tag).ToList()
-                }).OrderByDescending(x => x.DateCreated).ToListAsync();
-            }
+            //if (!Post.Any())
+            //{
+            //    Post = await _context.Post.Select(x => new BigPost
+            //    {
+            //        PostId = x.PostId,
+            //        Avatar = x.Account.Avatar,
+            //        Username = x.Account.Username,
+            //        Checkin = x.Checkin,
+            //        Description = x.Description,
+            //        Images = x.PostImage.Select(x => x.Image).ToList(),
+            //        Comments = x.Comment.ToList(),
+            //        DateCreated = x.DateCreated,
+            //        AccountId = x.AccountId,
+            //        hashTags = x.PostTag.Select(x => x.Tag).ToList()
+            //    }).OrderByDescending(x => x.DateCreated).ToListAsync();
+            //}
 
             IEnumerable<Comment> Comments = new List<Comment>();
             foreach (var item in Post)

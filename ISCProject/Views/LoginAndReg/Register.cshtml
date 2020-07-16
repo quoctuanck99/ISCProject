@@ -52,10 +52,20 @@
                     </div>
 
                     <div class="submit-form" style="text-align:center">
-                        <button type="submit" class="btn btn-primary">Register</button>
+                        <button type="submit" class="btn btn-primary" disabled id="submit_register" >Register</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    $("#exampleCheck1").click(function () {
+        if ($(this).prop("checked")) {
+            $("#submit_register").prop("disabled", false);
+        } else {
+            $("#submit_register").prop("disabled", true);
+        }
+    })
+</script>

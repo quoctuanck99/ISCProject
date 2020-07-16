@@ -23,40 +23,43 @@ namespace ISCProject_API.Controllers
         [HttpPost]
         public async Task<ActionResult<Register>> PostFollow(Register register)
         {
-            Account acc = new Account();
-            acc.AccountName = register.Username;
-            acc.HashedPassword = register.Password;
-
-
-            User user = new User();
-            user.FullName = register.Fullname;
-            user.Phone = register.Phonenumber;
-            user.Email = register.Email;
-            user.Dob = register.Dob;
-            user.Gender = register.Gender;
-            user.Username = register.Username;
-            user.DateCreated = DateTime.Now;
-            user.IsActive = true;
-            user.IsAgency = false;
-
-            using (var trans = _context.Database.BeginTransaction())
+            Account acc = new Account
             {
-                try
-                {
-                    _context.Account.Add(acc);
-                    _context.SaveChanges();
-                    user.AccountId = acc.AccountId;
+                AccountName = register.Username,
+                HashedPassword = register.Password,
+                Salt = ""
+            };
+            using var trans = _context.Database.BeginTransaction();
+            try
+            {
+                _context.Account.Add(acc);
+                await _context.SaveChangesAsync();
 
-                    _context.User.Add(user);
-                    _context.SaveChanges();
-                    trans.Commit();
-                    return Ok();
-                }
-                catch (Exception)
+                User user = new User
                 {
-                    trans.Rollback();
-                    return Conflict();
-                }
+                    FullName = register.Fullname,
+                    Phone = register.Phonenumber,
+                    Email = register.Email,
+                    Dob = register.Dob,
+                    Gender = register.Gender,
+                    Username = register.Username,
+                    DateCreated = DateTime.Now,
+                    IsActive = true,
+                    IsAgency = false
+                };
+
+                user.AccountId = acc.AccountId;
+
+                _context.User.Add(user);
+                await _context.SaveChangesAsync();
+                await trans.CommitAsync();
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                e.Message.ToString();
+                await trans.RollbackAsync();
+                return Conflict();
             }
         }
     }
