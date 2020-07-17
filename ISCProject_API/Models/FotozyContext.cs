@@ -43,7 +43,7 @@ namespace ISCProject_API.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=.;Database=Fotozy;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=Fotozyy.mssql.somee.com;Database=fotozyy;User Id=doanvanthang_SQLLogin_1;password=tttjed2d9j;Trusted_Connection=False;MultipleActiveResultSets=true;");
             }
         }
 

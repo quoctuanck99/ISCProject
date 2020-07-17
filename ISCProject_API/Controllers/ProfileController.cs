@@ -32,6 +32,7 @@ namespace ISCProject_API.Controllers
                                Username = a.Username,
                                IsFollowing = a.FollowFollowing.Select(x => x.AccountId).Contains(FollowingId.Value),
                                AccountId = a.AccountId,
+                               Avatar = a.Avatar
                            }).FirstOrDefault();
 
             var images = _context.PostImage.Where(x => x.Post.AccountId == AccountId).Select(x => x.Image).ToList();
