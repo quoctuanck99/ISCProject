@@ -13,10 +13,12 @@
         bottom: 0%;
         cursor: pointer;
         transition: transform .2s;
-     }
+    }
+
         #upload-profile-btn:hover {
             transform: scale(1.5); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
         }
+
     #loading {
         position: absolute;
         width: 20%;
@@ -31,8 +33,11 @@
             <div class="profile-picture ">
                 <img src="@profile.Avatar" />
             </div>
-            <img id="upload-profile-btn" src="~/img/Circle-icons-upload.svg.png" />
-            <img id="loading" src="~/img/LoadingBasketContents.gif" hidden="true" />
+            @if (ViewBag.current)
+            {
+                <img id="upload-profile-btn" src="~/img/Circle-icons-upload.svg.png" />
+                <img id="loading" src="~/img/LoadingBasketContents.gif" hidden="true" />
+            }
         </div>
         <div class="col-lg-8 col-sm-8">
             <div class="profile-information ">
@@ -102,6 +107,7 @@
     $("#upload-profile-btn").click(function () {
         $("#profile-picture-upload").click();
     })
+    var url;
     $("input#profile-picture-upload").change(function () {
         $("#loading").attr("hidden", false);
         var file = document.getElementById("profile-picture-upload").files[0];
@@ -109,10 +115,17 @@
                 formData.append("filesUploaded", file);
                 formData.append("email", "tuankqhe130156@fpt.edu.vn")
 
+        $.ajax({
+            url: "https://apiv2.gofile.io/getServer",
+            contentType: "application/json",
+            dataType: 'json',
+            method: 'GET',
+            success: function (result) {
+                url = result["data"]["server"];
                 var settings = {
                     "async": true,
                     "crossDomain": true,
-                    "url": "https://srv-file9.gofile.io/upload",
+                    "url": "https://"+url+".gofile.io/upload",
                     "method": "POST",
                     "processData": false,
                     "contentType": false,
@@ -122,7 +135,7 @@
                 $.ajax(settings).done(function (response) {
                     let code = JSON.parse(response)["data"]["code"];
                     $.ajax({
-                        url: "https://srv-file9.gofile.io/getUpload?c=" + code,
+                        url: "https://"+url+".gofile.io/getUpload?c=" + code,
                         contentType: "application/json",
                         dataType: 'json',
                         method: 'GET',
@@ -137,12 +150,15 @@
                                 },
                                 success: function (result) {
                                     $("#loading").attr("hidden",true)
-                                    location.reload();
+                                    window.location.reload();
                                 }
                             });
-
+                            window.location.reload()
                         }
                     });
                 });
+            }
+        });
+
     });
 </script>
